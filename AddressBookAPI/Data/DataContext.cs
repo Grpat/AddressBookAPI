@@ -30,6 +30,32 @@ public class DataContext : DbContext
 
         return base.SaveChangesAsync(cancellationToken);
     }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        
+        modelBuilder.Entity<Contact>(b =>
+        {
+            b.HasData(new Contact
+            {
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now,
+                Id = 1,
+                FirstName = "Patryk",
+                LastName = "Gruszczyk",
+                PhoneNumber = "690563138",
+                
+            });
+            b.OwnsOne(e => e.Address).HasData(new
+            {
+                ContactId=1,
+                Country="Poland",
+                City="Jaworze",
+                Street="Cisowa",
+                ZipCode="43-384"
+            });
+        });
+ 
+    }
     public DbSet<Contact> Contacts { get; set; }
 }
     
