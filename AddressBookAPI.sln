@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressBookAPI", "AddressBookAPI\AddressBookAPI.csproj", "{854AB3CE-D8D7-41D8-972E-32C561989AED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{01A2ADF8-EA25-4BBD-A963-BA7C555FE297}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{854AB3CE-D8D7-41D8-972E-32C561989AED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{854AB3CE-D8D7-41D8-972E-32C561989AED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{854AB3CE-D8D7-41D8-972E-32C561989AED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01A2ADF8-EA25-4BBD-A963-BA7C555FE297}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01A2ADF8-EA25-4BBD-A963-BA7C555FE297}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01A2ADF8-EA25-4BBD-A963-BA7C555FE297}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01A2ADF8-EA25-4BBD-A963-BA7C555FE297}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

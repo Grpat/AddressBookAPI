@@ -24,6 +24,8 @@ namespace AddressBookAPI.Data
             _mapper = mapper;
         }
 
+        
+
         // GET: api/Contact
         [HttpGet]
         [Route("api/GetAllContacts")]
@@ -31,7 +33,8 @@ namespace AddressBookAPI.Data
         {
           /*if (await _context.Contacts.CountAsync() == 0) return NoContent();*/
           
-          return await _context.Contacts.ToListAsync();
+          return Ok(await _context.Contacts.ToListAsync());
+         
         }
 
         // GET: api/Contact/5
