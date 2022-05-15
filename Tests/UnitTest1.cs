@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AddressBookAPI.Data;
+using AddressBookAPI.DtoModels;
 using AddressBookAPI.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,6 @@ public class UnitTest1:IDisposable
     
     public UnitTest1()
     {
-        
         var options = new DbContextOptionsBuilder<DataContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
             .Options;
         _context = new DataContext(options);
@@ -42,32 +42,60 @@ public class UnitTest1:IDisposable
         _context.SaveChangesAsync();
     }
     [Fact]
-    public async void GetContacts_ReturnsCorrectType()
+    public async Task GetContacts_ReturnsCorrectType()
     {
-        var controller = new ContactController(_context,null);
-        var result = await controller.GetContacts();
+       
 
-        var objectResult = Assert.IsType<OkObjectResult>(result.Result);
+        var controller = new ContactController(_context,null);
+        var response = await controller.GetContacts();
+
+        var objectResult = Assert.IsType<OkObjectResult>(response.Result);
         Assert.IsAssignableFrom<IEnumerable<Contact>>(objectResult.Value);
     }
     [Fact]
-    public async void GetContact_ReturnsContact_ValidID()
+    public async Task GetContact_ReturnsContact_ValidID()
     {
         var controller =new ContactController(_context,null);
-        var result = await controller.GetContact(1);
+        var response = await controller.GetContact(1);
         
-        Assert.IsType<OkObjectResult>(result.Result);
+        Assert.IsType<OkObjectResult>(response.Result);
     }
     
     [Fact]
-    public async void GetContact_ReturnsContact_InvalidID()
+    public async Task GetContact_ReturnsContact_InvalidID()
     {
         var controller =new ContactController(_context,null);
-        var result = await controller.GetContact(5);
-        Assert.IsType<NotFoundResult>(result.Result);
+        var response = await controller.GetContact(5);
+        Assert.IsType<NotFoundResult>(response.Result);
         
     }
-
+    
+    [Fact]
+    public async Task AddContact_ReturnsBadRequest_WhenPhoneNumberIsAlreadyRegistered()
+    {
+        var config = new MapperConfiguration(cfg => cfg.AddProfile<ContactProfile>());
+        var mapper = config.CreateMapper();
+        var controller =new ContactController(_context,mapper);
+        var contactAddDto = new ContactAddDto
+        {
+            FirstName ="P",
+            LastName = "G",
+            PhoneNumber = "690563138",
+            Address = new AddressDto
+            {
+                Street = "Cisowa",
+                City = "75",
+                Country = "Poland",
+                ZipCode = "43-384"
+            }
+        };
+        var response = await controller.AddContact(contactAddDto);
+        
+            
+        Assert.IsType<BadRequestObjectResult>(response.Result);
+        
+    }
+    
     public void Dispose()
     {
         _context.Database.EnsureCreated();

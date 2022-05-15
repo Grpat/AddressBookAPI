@@ -46,7 +46,7 @@ namespace AddressBookAPI.Data
 
             if (contact == null) return NotFound();
             
-            return contact;
+            return Ok (contact);
         }
         
         //GET: api/LastAddedContact 
